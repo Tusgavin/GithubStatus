@@ -1,11 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+//import {View, Text} from 'react-native';
 
-const Nutka = () => {
+import Topper from '../../components/topper';
+
+const Nutka = ({navigation}) => {
+  const goBack = () => {
+    navigation.navigate('Initial');
+  };
+
   return (
-    <View>
-      <Text>Nutka</Text>
-    </View>
+    <Topper title={'Nutka'} subtitle={'Pagina do nutka'} goBack={goBack} />
   );
 };
 
