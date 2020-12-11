@@ -1,13 +1,16 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-const {Screen, Stack } = createStackNavigator();
+const {Screen, Navigator} = createStackNavigator();
+
+import Guto from '../pages/guto';
+import Nutka from '../pages/nutka';
 
 export default () => {
   return (
-    <Stack>
-      <Screen></Screen>
-      <Screen></Screen>
-    </Stack>
+    <Navigator>
+      <Screen name="Guto" component={Guto} />
+      <Screen name="Nutka" component={Nutka} />
+    </Navigator>
   );
 };
