@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {View, Text} from 'react-native';
 
@@ -8,7 +8,7 @@ import Topper from '../../components/topper';
 
 const Initial = ({navigation}) => {
   return (
-    <>
+    <View>
       <Topper title="Initial" subtitle="Pagina inicial" />
       <View>
         <Text>Initial</Text>
@@ -19,7 +19,7 @@ const Initial = ({navigation}) => {
           Nutka
         </Button>
       </View>
-    </>
+    </View>
   );
 };
 
