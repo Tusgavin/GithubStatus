@@ -8,7 +8,7 @@ import Topper from '../../components/topper';
 const Initial = ({navigation}) => {
   return (
     <View>
-      <Topper title="Initial" subtitle="Pagina inicial" />
+      <Topper title="Initial" subtitle="Pagina inicial" goBack={null} />
       <View>
         <Text>Initial</Text>
         <Button mode="contained" onPress={() => navigation.navigate('Guto')}>
