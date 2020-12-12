@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {Drawer, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment';
 
 import COLORS from '../../constants/colors';
 import Topper from '../../components/topper';
@@ -11,6 +12,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Guto = ({navigation}) => {
   const [loadingRefresh, setLoadingRefresh] = useState(false);
   const [data, setData] = useState([]);
+  const [lastUpdateDate, setLastUpdateDate] = useState('');
 
   const goBack = () => {
     navigation.navigate('Initial');
@@ -25,7 +27,7 @@ const Guto = ({navigation}) => {
       .catch((error) => console.error(error))
       .finally(() => setLoadingRefresh(false));
 
-    console.log(data);
+    setLastUpdateDate(moment().format('LLLL'));
   };
 
   return (
@@ -52,12 +54,8 @@ const Guto = ({navigation}) => {
           <Drawer.Item style={styles.card} icon="star" label="Fourth Item" />
           <Drawer.Item style={styles.card} icon="star" label="Fifth Item" />
           <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
+          <Drawer.Item style={styles.card} icon="star" label="Seventh Item" />
+          <Drawer.Item style={styles.card} icon="star" label="Eighth Item" />
         </ScrollView>
       </View>
       <View style={styles.footerContainer}>
@@ -68,7 +66,9 @@ const Guto = ({navigation}) => {
           loading={loadingRefresh}>
           Refresh
         </Button>
-        <Text style={styles.updateText}>Last updated</Text>
+        <Text style={styles.updateText}>
+          {'Last Update: ' + lastUpdateDate}
+        </Text>
       </View>
     </View>
   );
