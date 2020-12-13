@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import {Drawer, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
+import {parse} from 'himalaya';
 
 import COLORS from '../../constants/colors';
 import Topper from '../../components/topper';
@@ -23,11 +24,11 @@ const Guto = ({navigation}) => {
 
     fetch('https://www.githubstatus.com')
       .then((response) => response.text())
-      .then((json) => console.log(json))
+      .then((html) => setData(parse(html)))
+      //.then(console.log(data[2]['children'][1]))
+      .then(setLastUpdateDate(moment().format('LLLL')))
       .catch((error) => console.error(error))
       .finally(() => setLoadingRefresh(false));
-
-    setLastUpdateDate(moment().format('LLLL'));
   };
 
   return (
