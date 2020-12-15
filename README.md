@@ -35,3 +35,5 @@ npm start
 ```properties
 npm run android
 ```
+## Api
+A Api consumida pelo aplicativo, que envia as informações do site https://www.githubstatus.com/, está presente no repositório https://github.com/Tusgavin/GithubStatus-Api
