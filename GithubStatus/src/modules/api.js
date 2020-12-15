@@ -2,7 +2,7 @@
 import {create} from 'apisauce';
 
 const api = create({
-  baseURL: 'http://192.168.1.107:3000',
+  baseURL: '',
 });
 
 async function get(path) {
