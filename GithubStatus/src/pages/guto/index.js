@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
-import {Drawer, Button} from 'react-native-paper';
+import {Button, Card} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
-import {parse} from 'himalaya';
+import {ScrollView} from 'react-native-gesture-handler';
+import {scrapGhStatus} from '../../modules/api';
 
 import COLORS from '../../constants/colors';
 import Topper from '../../components/topper';
 import styles from './styles';
-import {ScrollView} from 'react-native-gesture-handler';
 
-const Guto = ({navigation}) => {
+const Tusgavin = ({navigation}) => {
   const [loadingRefresh, setLoadingRefresh] = useState(false);
   const [data, setData] = useState([]);
   const [lastUpdateDate, setLastUpdateDate] = useState('');
@@ -19,17 +19,37 @@ const Guto = ({navigation}) => {
     navigation.navigate('Initial');
   };
 
-  const getDataFromApi = () => {
-    setLoadingRefresh(true);
-
-    fetch('https://www.githubstatus.com')
-      .then((response) => response.text())
-      .then((html) => setData(parse(html)))
-      //.then(console.log(data[2]['children'][1]))
-      .then(setLastUpdateDate(moment().format('LLLL')))
-      .catch((error) => console.error(error))
-      .finally(() => setLoadingRefresh(false));
+  const getDataFromApi = async () => {
+    try {
+      setLoadingRefresh(true);
+      const resp = await scrapGhStatus();
+      resp.map((item) => {
+        if (item.name === 'Visit www.githubstatus.com for more information') {
+          item.name = 'GitHub Status Page';
+        }
+      });
+      setData(resp);
+      setLastUpdateDate(moment().format('LLLL'));
+      setLoadingRefresh(false);
+    } catch (err) {
+      console.log(err);
+      setLoadingRefresh(false);
+    }
   };
+
+  const setStatusIcons = (item) => {
+    if (item.status === 'operational') {
+      return <Icon name="check" size={25} color={COLORS.green} />;
+    } else if (item.status === 'under_maintenance') {
+      return <Icon name="wrench" size={25} color={COLORS.orange} />;
+    } else {
+      return <Icon name="question" size={25} color={COLORS.red} />;
+    }
+  };
+
+  useEffect(() => {
+    getDataFromApi();
+  }, []);
 
   return (
     <View style={styles.mainContainer}>
@@ -44,19 +64,23 @@ const Guto = ({navigation}) => {
           <Icon name="github-alt" size={25} color={COLORS.white} />
         </View>
         <Text style={styles.pageSubtitle}>
-          A simple application to learn Web Scrapping !
+          A simple application to learn Web Scraping !
         </Text>
       </View>
       <View style={styles.statusCardsContainer}>
         <ScrollView style={styles.scrollViewContainer}>
-          <Drawer.Item style={styles.card} icon="star" label="First Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Second Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Third Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Fourth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Fifth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Sixth Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Seventh Item" />
-          <Drawer.Item style={styles.card} icon="star" label="Eighth Item" />
+          {data &&
+            data.map((item, id) => {
+              return (
+                <Card.Title
+                  style={styles.card}
+                  key={id}
+                  title={item.name}
+                  subtitle={item.status}
+                  right={() => setStatusIcons(item)}
+                />
+              );
+            })}
         </ScrollView>
       </View>
       <View style={styles.footerContainer}>
@@ -75,4 +99,4 @@ const Guto = ({navigation}) => {
   );
 };
 
-export default Guto;
+export default Tusgavin;

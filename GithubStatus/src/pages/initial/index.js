@@ -21,7 +21,7 @@ const Initial = ({navigation}) => {
         />
         <Text style={styles.initialPageDescription}>
           This App was created by Tusgavin and Nutka in order to learn about Web
-          Scrapping and train React Native Development. This is part of a bigger
+          Scraping and train React Native Development. This is part of a bigger
           project, a Podcast Library.
         </Text>
         <Text style={styles.initialPageDescription}>
@@ -31,9 +31,9 @@ const Initial = ({navigation}) => {
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
-          onPress={() => navigation.navigate('Guto')}
+          onPress={() => navigation.navigate('Tusgavin')}
           style={styles.gutoButton}>
-          Guto
+          Tusgavin
         </Button>
         <Button
           mode="contained"
