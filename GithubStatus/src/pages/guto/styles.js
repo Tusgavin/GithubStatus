@@ -35,10 +35,11 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: COLORS.white,
-    padding: '3%',
+    padding: '2%',
     marginTop: '2%',
     marginLeft: '3%',
     marginRight: '3%',
+    borderRadius: 10,
   },
   updateText: {
     color: COLORS.white,
